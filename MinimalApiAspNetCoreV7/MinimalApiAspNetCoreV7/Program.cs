@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +19,13 @@ if (app.Environment.IsDevelopment())
 app.MapGet("filtro", (string param) =>
 {
     return $"{param}";
+})
+.AddEndpointFilter(async (context, next) =>
+{
+    if (context.HttpContext.Request.QueryString.Value.Contains("null"))
+        return Results.BadRequest();
+
+    return await next(context);
 });
 
 
