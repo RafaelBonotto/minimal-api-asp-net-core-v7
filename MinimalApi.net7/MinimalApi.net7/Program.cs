@@ -14,6 +14,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapGet("filtro", (string param) =>
+{
+    return $"{param}";
+});
+
 app.UseHttpsRedirection();
 
 app.Run();
